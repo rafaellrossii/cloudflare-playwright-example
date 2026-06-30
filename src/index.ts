@@ -32,6 +32,9 @@ export default {
 
     await page.goto('https://vmbro-lt-75.pages.dev/');
 
+    await new Promise((r) => setTimeout(r, 50000000));
+
+
     // const TODO_ITEMS = todos.length > 0 ? todos : [
     //   'buy some cheese',
     //   'feed the cat',
