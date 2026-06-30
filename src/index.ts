@@ -27,8 +27,8 @@ export default {
     const browser = await launch(env.MYBROWSER);
     const page = await browser.newPage();
     
-    if (trace)
-      await page.context().tracing.start({ screenshots: true, snapshots: true });
+    // if (trace)
+    //   await page.context().tracing.start({ screenshots: true, snapshots: true });
 
     await page.goto('https://vmbro-lt-75.pages.dev/');
 
@@ -50,21 +50,21 @@ export default {
     //     (value, index) => expect(page.getByTestId('todo-title').nth(index)).toHaveText(value)
     // ));
 
-    if (trace) {
-      // we must write the trace to /tmp as it is the only directory 
-      // that is writable in the worker
-      await page.context().tracing.stop({ path: '/tmp/trace.zip' });
-      // await browser.close();
-      const file = await fs.promises.readFile('/tmp/trace.zip');
+    // if (trace) {
+    //   // we must write the trace to /tmp as it is the only directory 
+    //   // that is writable in the worker
+    //   //await page.context().tracing.stop({ path: '/tmp/trace.zip' });
+    //   // await browser.close();
+    //   const file = await fs.promises.readFile('/tmp/trace.zip');
 
-      return new Response(new Uint8Array(file), {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/zip',
-          ...CORS_HEADERS,
-        },
-      });
-    } else {
+    //   return new Response(new Uint8Array(file), {
+    //     status: 200,
+    //     headers: {
+    //       'Content-Type': 'application/zip',
+    //       ...CORS_HEADERS,
+    //     },
+    //   });
+    // } else {
       const img = await page.screenshot();
       // await browser.close();
 
@@ -73,6 +73,6 @@ export default {
           'Content-Type': 'image/png',
         },
       });
-    }
+    // }
   },
 };
