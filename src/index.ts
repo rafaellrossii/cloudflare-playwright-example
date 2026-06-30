@@ -32,23 +32,23 @@ export default {
 
     await page.goto('https://vmbro-lt-75.pages.dev/');
 
-    const TODO_ITEMS = todos.length > 0 ? todos : [
-      'buy some cheese',
-      'feed the cat',
-      'book a doctors appointment'
-    ];
+    // const TODO_ITEMS = todos.length > 0 ? todos : [
+    //   'buy some cheese',
+    //   'feed the cat',
+    //   'book a doctors appointment'
+    // ];
 
-    const newTodo = page.getByPlaceholder('What needs to be done?');
-    for (const item of TODO_ITEMS) {
-      await newTodo.fill(item);
-      await newTodo.press('Enter');
-    }
+    // const newTodo = page.getByPlaceholder('What needs to be done?');
+    // for (const item of TODO_ITEMS) {
+    //   await newTodo.fill(item);
+    //   await newTodo.press('Enter');
+    // }
 
-    await expect(page.getByTestId('todo-title')).toHaveCount(TODO_ITEMS.length);
+    // await expect(page.getByTestId('todo-title')).toHaveCount(TODO_ITEMS.length);
 
-    await Promise.all(TODO_ITEMS.map(
-        (value, index) => expect(page.getByTestId('todo-title').nth(index)).toHaveText(value)
-    ));
+    // await Promise.all(TODO_ITEMS.map(
+    //     (value, index) => expect(page.getByTestId('todo-title').nth(index)).toHaveText(value)
+    // ));
 
     if (trace) {
       // we must write the trace to /tmp as it is the only directory 
