@@ -3,27 +3,20 @@ import { launch } from "@cloudflare/playwright";
 export default {
   async fetch(request, env): Promise<Response> {
     const browser = await launch(env.MYBROWSER);
+    const page = await browser.newPage();
 
-    try {
-      const page = await browser.newPage();
+    await page.goto("https://vmbro-lt-75.pages.dev/", {
+      waitUntil: "networkidle",
+    });
 
-      await page.goto("https://vmbro-lt-75.pages.dev/");
+    console.log("Página aberta.");
 
-      await new Promise((r) => setTimeout(r, 500000));
+    // Mantém a execução bloqueada até o runtime encerrá-la.
+    await new Promise(() => {});
 
+    // Nunca será executado.
+    await browser.close();
 
-      const image = await page.screenshot({
-        type: "png",
-        fullPage: true,
-      });
-
-      return new Response(image, {
-        headers: {
-          "Content-Type": "image/png",
-        },
-      });
-    } finally {
-      await browser.close();
-    }
+    return new Response("OK");
   },
 } satisfies ExportedHandler<Env>;
